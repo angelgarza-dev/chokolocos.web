@@ -1,0 +1,12 @@
+﻿.bg-image {
+    background-image: url('img/bg_image.jpg');
+    /*background-position: 0 -110px;*/
+    background-repeat: repeat-x;
+    background-size: contain;
+}
+
+.center-content {
+    position: relative;
+    margin: auto;
+    top: 25vh;
+}
