@@ -1,4 +1,6 @@
 ﻿.bg-image {
+    display: block;
+    height: 150px;
     background-image: url('img/bg_image.jpg');
     /*background-position: 0 -110px;*/
     background-repeat: repeat-x;
@@ -9,4 +11,114 @@
     position: relative;
     margin: auto;
     top: 25vh;
+}
+
+.section-social {
+    padding-bottom: 20px;
+}
+
+.img-gif {
+    height: 30px;
+    width: 30px;
+}
+
+.no-link {
+    text-decoration: none;
+    color: black;
+}
+
+.insta-link {
+    background-color: #ac2bac;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    display: inline-block;
+}
+
+/* Clase que activa la animación al hacer scroll */
+.tarjeta-articulo.visible {
+    width: 0%;
+    opacity: 0;
+    transform: translateY(0);
+}
+
+/* Estilos del Carrusel Interno */
+.carrusel {
+    position: relative;
+    height: 200px;
+}
+
+.slide {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    opacity: 0;
+    width: 0%;
+    transition-property: opacity, width;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+}
+
+    .slide.active {
+        opacity: 1;
+        width: 100%;
+    }
+
+
+/* Small devices (large phones, 640px and up) */
+@media (max-width: 480px) {
+    .carrusel {
+        height: 300px;
+    }
+
+    .slide {
+        height: 300px;
+    }
+}
+
+/* Large mobile/Tablet (portrait) */
+@media (min-width: 640px) {
+    .carrusel {
+        height: 300px;
+    }
+
+    .slide {
+        height: 300px;
+    }
+}
+
+/* Tablet (landscape)/Small laptop */
+@media (min-width: 768px) {
+    .carrusel {
+        height: 325px;
+    }
+
+    .slide {
+        height: 325px;
+    }
+}
+
+/*Laptop/Desktop*/
+@media(min-width: 1024px) {
+    .carrusel {
+        height: 350px;
+    }
+
+    .slide {
+        height: 350px;
+    }
+}
+
+/* Large devices (laptops, 1024px and up) */
+@media (min-width: 1024px) {
+    .carrusel {
+        height: 350px;
+    }
+
+    .slide {
+        height: 350px;
+    }
 }

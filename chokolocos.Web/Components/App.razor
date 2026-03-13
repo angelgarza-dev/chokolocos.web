@@ -24,6 +24,27 @@
 </head>
 
 <body>
+    @* global styles *@
+    <style>
+        @@font-face {
+            font-family: deli-cake;
+            src: url('../../font/deli-cake/DeliCake.ttf') format('truetype');
+        }
+
+        @@font-face {
+            font-family: sweets-delight;
+            src: url('../../font/sweets-delight/SweetsDelight.ttf') format('truetype');
+        }
+
+        .deli-cake {
+            font-family: deli-cake;
+        }
+
+        .sweets-delight {
+            font-family: sweets-delight;
+        }
+    </style>
+
     <div id="app-pre-loader" class="d-flex bg-color">
         <div class=" align-self-center justify-content-center" style="height:100vh;width:100vw;">
             <p class="mt-5 fw-bold h1 text-center">
@@ -40,7 +61,6 @@
     <script src="_framework/blazor.web.js"></script>
     @* bootstrap *@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-
 
 </body>
 

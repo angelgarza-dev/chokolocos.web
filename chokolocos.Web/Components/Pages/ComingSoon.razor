@@ -1,44 +1,162 @@
-﻿@page "/"
+﻿@inject IJSRuntime JS
+
+@page "/"
 
 <PageTitle>chokolocos</PageTitle>
 
+@* page content *@
 <div class="bg-image">
-    <div class="d-flex justify-content-center align-items-center">
+</div>
 
-        <div class="center-content">
+<div class="container-fluid">
+    <img class="rounded mx-auto d-block" src="img\chokolocos_logo.png" alt="logo chokolocos" style="max-height:150px; max-width:90%;" />
 
-            <img class="rounded mx-auto d-block" src="img\chokolocos_logo.png" alt="logo chokolocos" style="max-height:200px; max-width:100%;" />
 
-            <h1 class="text-center">Estamos preparando algo delicioso 😋</h1>
+    <div class="content">
+        <h1 class="sweets-delight display-2">Nuestros mejores productos</h1>
 
-            <p class="text-center">
-                <label>Enterate de las novedades en nuestras redes</label>
-            </p>
-            <div class="d-flex justify-content-center">
+        <div class="row">
+            @* item 1 *@
 
-                <!-- Facebook -->
-                <a data-mdb-ripple-init class="btn btn-primary mx-2" style="background-color: #3b5998;" href="https://www.facebook.com/103492021490449" target="_blank" >
-                    <i class="fab fa-facebook-f fa-2x"></i>
+            <div class="col-lg-4 col-md-6 col-sm-12 reveal">
+                <a href="https://www.instagram.com/p/CgIVf4YrHUK/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" class="no-link">
+                    <div class="card mb-3">
+                        <div class="carrusel d-flex">
+                            <img src="https://scontent-qro1-1.cdninstagram.com/v/t51.82787-15/623968267_18091468628297510_5081652201478684211_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=105&ig_cache_key=Mjg3NTkyNTc5OTQ5NDMwNTkwOQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTYxMC5zZHIuQzMifQ%3D%3D&_nc_ohc=qc3J79Sc7JcQ7kNvwEo9Gap&_nc_oc=Adks1RmuVzMsoLt4EoxWsrK4yirGMe4yIaaG8Bvh_w6bAsl05gIklXWp9ptbRTasm54&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-qro1-1.cdninstagram.com&_nc_gid=ZKLu8BL12-GQj1ISkG9BvA&_nc_ss=8&oh=00_AfzlsVxPh8ZZsLTikDOPwgR3SBe8i5jlaYY45jvj_BQEtQ&oe=69B90C2E" class="card-img-top slide active" alt="Item picture" />
+                            <img src="https://scontent-qro3-1.cdninstagram.com/v/t51.82787-15/621813004_18054181637416485_6828340204147892360_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ig_cache_key=Mjg4NDY1MDExMTE1NDgxMjE3MA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=jNJn-nlt8fgQ7kNvwG-O6BX&_nc_oc=AdnGZOsFLtCkAROvpmd92H0lfd7wqvXqGoF2NzR12aXRNvRnnpNzkKAEklNB0Uae-0c&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-qro3-1.cdninstagram.com&_nc_gid=qrGL1KX6evGvJ8OPWpMsmQ&_nc_ss=8&oh=00_AfwBFVATUFlfUcKSHxpzX0tNmlmUqLYrUNvn2X7hiybMmQ&oe=69B8F75A" class="card-img-top slide " alt="Item picture" />
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">
+                                Pastel Conejito turin
+                            </h5>
+                            @*  <button role="button" class="insta-link p-1">
+                                <i class="fab fa-instagram "></i>
+                                <span class="card-text">
+                                    Ver
+                                </span>
+
+                            </button> *@
+                        </div>
+                    </div>
                 </a>
-
-                <!-- Instagram -->
-                <a data-mdb-ripple-init class="btn btn-primary mx-2" style="background-color: #ac2bac;" href="https://www.instagram.com/choko.locos" target="_blank" >
-                    <i class="fab fa-instagram fa-2x"></i>
-                </a>
-
-                <!-- Tiktok -->
-                <a data-mdb-ripple-init class="btn btn-primary mx-2" style="background-color: #333333;" href="https://www.tiktok.com/@@chokolocos.2" target="_blank" >
-                    <i class="fab fa-tiktok fa-2x"></i>
-                </a>
-
-                <!-- Whatsapp -->
-                <a data-mdb-ripple-init class="btn btn-primary mx-2" style="background-color: #25d366;" href="https://wa.me/15531914321" target="_blank" role="button">
-                    <i class="fab fa-whatsapp fa-2x"></i>
-                </a>
-
             </div>
-        </div>
 
+            @* item 2 *@
+            <div class="col-lg-4 col-md-6 col-sm-12 reveal">
+                <a href="https://www.instagram.com/p/CwgPOInvtQC/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" class="no-link">
+                    <div class="card mb-3">
+                        <div class="carrusel d-flex">
+                            <img src="https://scontent-qro3-1.cdninstagram.com/v/t51.82787-15/618590219_17941008926981900_8863427213635753003_n.jpg?stp=dst-jpg_e35_p640x640_sh0.08_tt6&_nc_cat=109&ig_cache_key=MzE3OTYwODI3ODk1MDY2MzE3MA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuQzMifQ%3D%3D&_nc_ohc=ubJiH_MMI_sQ7kNvwFG1lPk&_nc_oc=Adm9D64BtbD8Db9UhalxohXuXqTrkdERpKMCu0ZgX58AypMQ5AxUHrKBIFZAbEXkulo&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-qro3-1.cdninstagram.com&_nc_gid=Y7W37HT5LbplDlZWOuT0zQ&_nc_ss=8&oh=00_Afx-lzjlmtk9_-NMoCZBKRPFHcO6AQDBVf9a2x6-LrYzDw&oe=69B920FD" class="card-img-top slide active" alt="Item picture" />
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Pastel Red Velvet</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            @* item 3 *@
+            <div class="col-lg-4 col-md-6 col-sm-12 reveal">
+                <a href="https://www.instagram.com/p/C8no7-XN7ss/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" class="no-link">
+
+                    <div class="card mb-3">
+                        <div class="carrusel d-flex">
+                            <img src="https://scontent-qro3-1.cdninstagram.com/v/t51.82787-15/624819973_18089695360845330_3493967100711645061_n.webp?_nc_cat=106&ig_cache_key=MzM5Nzg2NDQ4NzE0NTQyMTYxMg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuQzMifQ%3D%3D&_nc_ohc=fa3jWy4EYAMQ7kNvwGzxOTE&_nc_oc=AdmLsaNVJ3Fhjn0byqBO3bYk3p3KUWOuv5q4yxCIOrrCd56uB7iOF_JXL4SLYp9y1_k&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-qro3-1.cdninstagram.com&_nc_gid=PMCjE3dWe4aDj7mJPzuJ8w&_nc_ss=8&oh=00_AfxQ0MsHGN1tpHUXhoh8_JPaAohGf1r7k5PCsqYYqE5lBA&oe=69B92CF6" class="card-img-top slide active" alt="Item picture" />
+                            <img src="https://scontent-qro1-1.cdninstagram.com/v/t51.82787-15/623663560_18087713420104413_5068635560519331927_n.jpg?stp=dst-jpg_e35_s1080x1080_tt6&_nc_cat=105&ig_cache_key=MzE5ODQ5MzA4ODg5NTkzNTAzNw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTA4MC5zZHIuQzMifQ%3D%3D&_nc_ohc=uKX599xJCp0Q7kNvwFIDdHv&_nc_oc=Adnp6D5BybvK7d0z95RXhLKVVYkQwJr-R_leF-dsGqHa-nk-9FmtgvjrIUSDP9hqE2Q&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-qro1-1.cdninstagram.com&_nc_gid=Y7W37HT5LbplDlZWOuT0zQ&_nc_ss=8&oh=00_AfzQ704poc4eKOqrgf4lKZ9BLnRZNIaWrv8DuTroCyuG4A&oe=69B91757" class="card-img-top slide" alt="Item picture" />
+
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Cupcakes Personalizados</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
     </div>
 
+
+    @* 
+    <br />
+    <br />
+    <h3 class="text-center">Estamos preparando algo delicioso 😋</h3>
+    *@
+    <br />
+    <br />
+
+
+    @* Social *@
+    <section class="section-social">
+        <h5 class="text-center">
+            Enterate de las novedades y siguenos en nuestras redes
+            <img src="https://images.emojiterra.com/google/noto-emoji/animated-emoji/1f49e.gif" class="img-gif" />
+        </h5>
+        @* links *@
+        <div class="d-flex justify-content-center">
+            <!-- Facebook -->
+            <a data-mdb-ripple-init class="btn btn-primary mx-2" style="background-color: #3b5998;" href="https://www.facebook.com/103492021490449" target="_blank">
+                <i class="fab fa-facebook-f fa-2x"></i>
+            </a>
+
+            <!-- Instagram -->
+            <a data-mdb-ripple-init class="btn btn-primary mx-2" style="background-color: #ac2bac;" href="https://www.instagram.com/choko.locos" target="_blank">
+                <i class="fab fa-instagram fa-2x"></i>
+            </a>
+
+            <!-- Tiktok -->
+            <a data-mdb-ripple-init class="btn btn-primary mx-2" style="background-color: #333333;" href="https://www.tiktok.com/@@chokolocos.2" target="_blank">
+                <i class="fab fa-tiktok fa-2x"></i>
+            </a>
+
+            <!-- Whatsapp -->
+            <a data-mdb-ripple-init class="btn btn-primary mx-2" style="background-color: #25d366;" href="https://wa.me/15531914321" target="_blank" role="button">
+                <i class="fab fa-whatsapp fa-2x"></i>
+            </a>
+
+        </div>
+    </section>
+
 </div>
+
+
+<script async src="//www.instagram.com/embed.js"></script>
+<script>
+    window.inicializarCatalogo = () => {
+        // 1. Animación de Scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+        // 2. Lógica de Carrusel para cada tarjeta
+        document.querySelectorAll(".carrusel").forEach(carrusel => {
+            const slides = carrusel.querySelectorAll(".slide");
+            if (slides.length > 0) {
+                slides[0].classList.add("active");
+                let index = 0;
+                setInterval(() => {
+                    slides[index].classList.remove("active");
+                    index = (index + 1) % slides.length;
+                    slides[index].classList.add("active");
+                }, 4000); // Cambio cada 4 segundos
+            }
+        });
+    };
+</script>
+
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Llamamos a JavaScript para activar el observador de scroll y el carrusel
+            await JS.InvokeVoidAsync("inicializarCatalogo");
+        }
+    }
+}
