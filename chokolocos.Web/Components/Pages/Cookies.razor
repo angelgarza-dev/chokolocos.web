@@ -1,0 +1,148 @@
+@page "/galletas"
+@using chokolocos.Web.Models
+@inject IJSRuntime JS
+
+<PageTitle>Galletas Decoradas | chokolocos</PageTitle>
+
+<div class="py-4 reveal">
+    <div class="text-center mb-5">
+        <span class="deli-cake text-pink h1" style="color: var(--color-pink);">chokolocos</span>
+        <h1 class="font-heading display-4 fw-bold mt-2">Galletas Decoradas</h1>
+        <p class="text-muted fs-5">Galletas de mantequilla y vainilla decoradas artísticamente con Royal Icing</p>
+    </div>
+
+    <!-- Intro Text -->
+    <div class="text-center max-w-700 mx-auto mb-5 p-4 rounded-4 bg-white shadow-sm border border-light">
+        <p class="mb-0 text-muted" style="line-height: 1.6;">
+            Nuestras galletas son perfectas para mesas de dulces, recuerdos de eventos, regalos personalizados o simplemente para consentir a tus invitados. Cada galleta se hornea desde cero con mantequilla de alta calidad y se decora minuciosamente a mano.
+        </p>
+    </div>
+
+    <!-- Cookies Grid -->
+    <div class="row g-4">
+        @foreach (var item in cookieSets)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card glass-card hover-lift h-100 border-0 overflow-hidden shadow-sm d-flex flex-column justify-content-between">
+                    <div>
+                        <!-- Multi-image Carousel or single image -->
+                        @if (item.Pictures.Count > 1)
+                        {
+                            <div id="carousel-cookie-@item.Id" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000" style="height: 250px;">
+                                <div class="carousel-inner h-100">
+                                    @for (int i = 0; i < item.Pictures.Count; i++)
+                                    {
+                                        <div class="carousel-item @(i == 0 ? "active" : "") h-100">
+                                            <img src="@item.Pictures[i]" class="d-block w-100 h-100 object-fit-cover" alt="@item.Name">
+                                        </div>
+                                    }
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-cookie-@item.Id" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon bg-dark bg-opacity-25 rounded-circle p-2" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Anterior</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carousel-cookie-@item.Id" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon bg-dark bg-opacity-25 rounded-circle p-2" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Siguiente</span>
+                                </button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div style="height: 250px;">
+                                <img src="@item.Pictures[0]" class="w-100 h-100 object-fit-cover" alt="@item.Name">
+                            </div>
+                        }
+
+                        <div class="card-body p-4">
+                            <h3 class="font-heading h4 fw-bold mb-2">@item.Name</h3>
+                            <p class="text-muted small mb-0">@item.Description</p>
+                        </div>
+                    </div>
+                    
+                    <div class="px-4 pb-4">
+                        <a class="btn btn-premium-outline w-100 py-2" href="@GetWhatsAppLink(item)" target="_blank">
+                            <i class="fab fa-whatsapp me-2"></i>Cotizar Diseño
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private class CookieSet
+    {
+        public int Id { get; set; }
+        public required string Name { get; set; }
+        public required string Description { get; set; }
+        public required List<string> Pictures { get; set; }
+    }
+
+    private List<CookieSet> cookieSets = new()
+    {
+        new CookieSet
+        {
+            Id = 1,
+            Name = "Temática de Bluey",
+            Description = "Divertidas galletas inspiradas en Bluey y Bingo. Colores vivos y trazos exactos para que la fiesta de tus pequeños sea inolvidable.",
+            Pictures = new List<string> { "img/cookie/bluey.jpg" }
+        },
+        new CookieSet
+        {
+            Id = 2,
+            Name = "Nave Espacial & Cohete",
+            Description = "Viaja a las estrellas con este set espacial. Incluye detalles metalizados y planetas texturizados con glaseado real.",
+            Pictures = new List<string> { "img/cookie/espacio_1.jpg" }
+        },
+        new CookieSet
+        {
+            Id = 3,
+            Name = "San Valentín",
+            Description = "Expresa tu cariño con corazones, cartas de amor y diseños románticos ideales para regalar a tu persona favorita.",
+            Pictures = new List<string> { "img/cookie/san_valentin_1.jpg", "img/cookie/san_valentin_2.jpg" }
+        },
+        new CookieSet
+        {
+            Id = 4,
+            Name = "Navideñas",
+            Description = "El espíritu navideño en galletas de jengibre y mantequilla. Copos de nieve, pinos, esferas y botas decoradas festivamente.",
+            Pictures = new List<string> { "img/cookie/christmas_1.jpg", "img/cookie/christmas_2.jpg" }
+        },
+        new CookieSet
+        {
+            Id = 5,
+            Name = "Día de Muertos & Halloween",
+            Description = "Calaveritas de azúcar, calabazas y fantasmas coloridos. Una combinación perfecta de tradición mexicana y diversión espeluznante.",
+            Pictures = new List<string> { "img/cookie/halloween_1.jpg", "img/cookie/halloween_2.jpg", "img/cookie/halloween_3.jpg" }
+        },
+        new CookieSet
+        {
+            Id = 6,
+            Name = "Pascua",
+            Description = "Conejitos y huevos de pascua decorados con hermosos tonos pastel y texturas primaverales florales.",
+            Pictures = new List<string> { "img/cookie/easter_1.jpg" }
+        }
+    };
+
+    private string GetWhatsAppLink(CookieSet item)
+    {
+        var text = $"Hola Chokolocos! Me interesa cotizar unas galletas personalizadas con la temática de: {item.Name} que vi en su web.";
+        return $"https://wa.me/15531914321?text={Uri.EscapeDataString(text)}";
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("inicializarCatalogo");
+        }
+    }
+}
+
+<style>
+    .max-w-700 {
+        max-width: 700px;
+    }
+</style>

@@ -1,0 +1,226 @@
+@page "/pasteles"
+@using chokolocos.Web.Models
+@inject IJSRuntime JS
+
+<PageTitle>Pasteles y Cupcakes | chokolocos</PageTitle>
+
+<div class="py-4 reveal">
+    <div class="text-center mb-5">
+        <span class="deli-cake text-pink h1" style="color: var(--color-pink);">chokolocos</span>
+        <h1 class="font-heading display-4 fw-bold mt-2">Pasteles & Cupcakes</h1>
+        <p class="text-muted fs-5">Diseños artísticos en crema y fondant elaborados a mano</p>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="d-flex justify-content-center gap-2 mb-5">
+        <button class="btn @(activeFilter == "Todo" ? "btn-premium" : "btn-premium-outline") px-4" @onclick='() => SetFilter("Todo")'>
+            Todo
+        </button>
+        <button class="btn @(activeFilter == "Pasteles" ? "btn-premium" : "btn-premium-outline") px-4" @onclick='() => SetFilter("Pasteles")'>
+            Pasteles
+        </button>
+        <button class="btn @(activeFilter == "Cupcakes" ? "btn-premium" : "btn-premium-outline") px-4" @onclick='() => SetFilter("Cupcakes")'>
+            Cupcakes
+        </button>
+    </div>
+
+    <!-- Catalog Grid -->
+    <div class="row g-4">
+        @foreach (var item in GetFilteredItems())
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card glass-card hover-lift h-100 border-0 overflow-hidden shadow-sm">
+                    <div class="position-relative" style="height: 250px;">
+                        <img src="@item.Pictures[0]" class="card-img-top w-100 h-100 object-fit-cover" alt="@item.Name">
+                        <div class="category-badge">@item.Category</div>
+                    </div>
+                    <div class="card-body p-4 d-flex flex-column justify-content-between">
+                        <div>
+                            <h3 class="font-heading h4 fw-bold mb-2">@item.Name</h3>
+                            <p class="text-muted text-truncate-3 small mb-4">@item.Description</p>
+                        </div>
+                        <button class="btn btn-premium w-100 mt-2" @onclick="() => AbrirModal(item)">
+                            Ver Detalles
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Details Modal -->
+@if (selectedItem != null)
+{
+    <div class="modal-backdrop fade show" style="z-index: 1040;"></div>
+    <div class="modal fade show d-block" tabindex="-1" style="z-index: 1050; background: rgba(45, 28, 37, 0.4); backdrop-filter: blur(4px);" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content glass-card border-0 shadow-lg p-3">
+                <div class="modal-header border-0 pb-0">
+                    <h2 class="font-heading fw-bold modal-title">@selectedItem.Name</h2>
+                    <button type="button" class="btn-close shadow-none" @onclick="CerrarModal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-4">
+                    <div class="row g-4">
+                        <!-- Image Gallery Column -->
+                        <div class="col-md-6">
+                            <div class="rounded-4 overflow-hidden mb-3 shadow-sm" style="height: 320px;">
+                                <img src="@activeImageUrl" class="w-100 h-100 object-fit-cover" alt="@selectedItem.Name">
+                            </div>
+                            @if (selectedItem.Pictures.Count > 1)
+                            {
+                                <div class="d-flex gap-2 justify-content-center">
+                                    @foreach (var pic in selectedItem.Pictures)
+                                    {
+                                        <button class="btn p-0 border-0 rounded-3 overflow-hidden @(activeImageUrl == pic ? "ring-active" : "opacity-75")" 
+                                                style="width: 60px; height: 60px;" 
+                                                @onclick="() => SetActiveImage(pic)">
+                                            <img src="@pic" class="w-100 h-100 object-fit-cover" alt="Thumbnail">
+                                        </button>
+                                    }
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Product Info Column -->
+                        <div class="col-md-6 d-flex flex-column justify-content-between">
+                            <div>
+                                <h5 class="fw-bold text-pink mb-2" style="color: var(--color-pink);"><i class="fas fa-tag me-2"></i>Especialidad</h5>
+                                <p class="text-muted">@selectedItem.Description</p>
+                                
+                                <hr class="my-3 opacity-25">
+                                
+                                <div class="mb-3">
+                                    <h6 class="fw-bold mb-1"><i class="fas fa-users me-2"></i>Porciones Recomendadas:</h6>
+                                    <span class="badge bg-light text-dark py-2 px-3 border">@selectedItem.Portions</span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <h6 class="fw-bold mb-1"><i class="fas fa-birthday-cake me-2"></i>Sabores sugeridos:</h6>
+                                    <p class="small text-muted mb-0">@selectedItem.Flavors</p>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <a class="btn btn-premium w-100 py-3 fs-5" href="@GetWhatsAppLink(selectedItem)" target="_blank">
+                                    <i class="fab fa-whatsapp me-2"></i>Preguntar por WhatsApp
+                                </a>
+                                <p class="text-center text-muted small mt-2 mb-0">Cotización inmediata y sin compromisos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private string activeFilter = "Todo";
+    private CakeItem? selectedItem = null;
+    private string activeImageUrl = "";
+
+    private class CakeItem
+    {
+        public int Id { get; set; }
+        public required string Name { get; set; }
+        public required string Description { get; set; }
+        public required string Portions { get; set; }
+        public required string Flavors { get; set; }
+        public required List<string> Pictures { get; set; }
+        public required string Category { get; set; }
+    }
+
+    private List<CakeItem> items = new()
+    {
+        new CakeItem
+        {
+            Id = 1,
+            Name = "Pastel Conejito Turin",
+            Description = "Pan de chocolate húmedo relleno de crema de avellanas Turin, decorado con conejitos de chocolate, frosting suave y drip de ganache de chocolate.",
+            Portions = "15 - 20 personas",
+            Flavors = "Pan de Chocolate, Relleno Turin",
+            Pictures = new List<string> { "img/cake/turin_1.jpg", "img/cake/turin_2.jpg" },
+            Category = "Pasteles"
+        },
+        new CakeItem
+        {
+            Id = 2,
+            Name = "Pastel Red Velvet",
+            Description = "El clásico terciopelo rojo con un toque de cocoa fina y un delicioso betún de queso crema suave y terso, decorado con frutos rojos de temporada.",
+            Portions = "12 - 15 personas",
+            Flavors = "Red Velvet Tradicional, Betún de Queso Crema",
+            Pictures = new List<string> { "img/cake/red_velvet_1.jpg" },
+            Category = "Pasteles"
+        },
+        new CakeItem
+        {
+            Id = 3,
+            Name = "Cupcakes Temáticos",
+            Description = "Cupcakes individuales decorados artesanalmente en fondant y crema suave. Personalizamos la temática de acuerdo a tu evento (cumpleaños, graduación, baby shower, etc.).",
+            Portions = "Paquetes de 6, 12 o 24 piezas",
+            Flavors = "Vainilla Francesa, Chocolate Intenso, Fresa natural",
+            Pictures = new List<string> { "img/cake/cupcakes_1.jpg", "img/cake/cupcakes_2.jpg" },
+            Category = "Cupcakes"
+        }
+    };
+
+    private void SetFilter(string filter)
+    {
+        activeFilter = filter;
+    }
+
+    private List<CakeItem> GetFilteredItems()
+    {
+        if (activeFilter == "Todo")
+            return items;
+        return items.Where(i => i.Category == activeFilter).ToList();
+    }
+
+    private void AbrirModal(CakeItem item)
+    {
+        selectedItem = item;
+        activeImageUrl = item.Pictures[0];
+    }
+
+    private void CerrarModal()
+    {
+        selectedItem = null;
+    }
+
+    private void SetActiveImage(string url)
+    {
+        activeImageUrl = url;
+    }
+
+    private string GetWhatsAppLink(CakeItem item)
+    {
+        var text = $"Hola Chokolocos! Me interesa cotizar el {item.Name} que vi en su catálogo web.";
+        return $"https://wa.me/15531914321?text={Uri.EscapeDataString(text)}";
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("inicializarCatalogo");
+        }
+    }
+}
+
+<style>
+    .text-truncate-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
+    }
+
+    .ring-active {
+        outline: 3px solid var(--color-pink);
+    }
+
+    .modal-backdrop {
+        background-color: rgba(45, 28, 37, 0.6);
+    }
+</style>

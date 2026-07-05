@@ -1,0 +1,182 @@
+@page "/pedidos"
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+<PageTitle>Cotizar Pedido | chokolocos</PageTitle>
+
+<div class="py-4 reveal">
+    <div class="text-center mb-5">
+        <span class="deli-cake text-pink h1" style="color: var(--color-pink);">chokolocos</span>
+        <h1 class="font-heading display-4 fw-bold mt-2">Pedidos Especiales</h1>
+        <p class="text-muted fs-5">Cotiza y diseña el postre ideal para tu celebración</p>
+    </div>
+
+    <!-- Stepper Guide -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4 text-center bg-white h-100">
+                <div class="rounded-circle bg-pink-light d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px; background-color: var(--color-pink-light);">
+                    <i class="fas fa-pencil-ruler fs-4" style="color: var(--color-pink);"></i>
+                </div>
+                <h4 class="font-heading fw-bold mb-2">1. Imagina el Diseño</h4>
+                <p class="text-muted small mb-0">Decide la temática de tu pastel o galletas. Nos encantan los retos y recrear tus ideas favoritas.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4 text-center bg-white h-100">
+                <div class="rounded-circle bg-pink-light d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px; background-color: var(--color-pink-light);">
+                    <i class="fas fa-calculator fs-4" style="color: var(--color-pink);"></i>
+                </div>
+                <h4 class="font-heading fw-bold mb-2">2. Define Detalles</h4>
+                <p class="text-muted small mb-0">Calcula las porciones (para pasteles) o el número de piezas (para galletas). Escoge tus sabores preferidos.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4 text-center bg-white h-100">
+                <div class="rounded-circle bg-pink-light d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px; background-color: var(--color-pink-light);">
+                    <i class="fab fa-whatsapp fs-4" style="color: var(--color-pink);"></i>
+                </div>
+                <h4 class="font-heading fw-bold mb-2">3. Envía tu Idea</h4>
+                <p class="text-muted small mb-0">Completa el formulario de abajo para generar tu mensaje y enviarlo directamente a nuestro WhatsApp.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Section -->
+    <div class="row g-4">
+        <!-- Input Form -->
+        <div class="col-lg-7">
+            <div class="card glass-card border-0 p-4 p-md-5">
+                <h3 class="font-heading fw-bold mb-4"><i class="fas fa-edit me-2 text-pink" style="color: var(--color-pink);"></i>Formulario de Cotización</h3>
+                
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <label class="form-label fw-bold">Nombre Completo</label>
+                        <input type="text" class="form-control py-2 rounded-3 border-light-subtle shadow-none" placeholder="Ingresa tu nombre" @bind="nombre" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Tipo de Postre</label>
+                        <select class="form-select py-2 rounded-3 border-light-subtle shadow-none" @bind="tipoPostre">
+                            <option value="Pastel de Diseño">Pastel de Diseño</option>
+                            <option value="Galletas Decoradas">Galletas Decoradas</option>
+                            <option value="Cupcakes Temáticos">Cupcakes Temáticos</option>
+                            <option value="Mesa de Postres Completa">Mesa de Postres Completa</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Porciones / Piezas</label>
+                        <input type="number" class="form-control py-2 rounded-3 border-light-subtle shadow-none" min="5" max="500" @bind="cantidad" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Sabor Preferido</label>
+                        <select class="form-select py-2 rounded-3 border-light-subtle shadow-none" @bind="sabor">
+                            <option value="Chocolate Intenso">Chocolate Intenso</option>
+                            <option value="Vainilla Clásica">Vainilla Clásica</option>
+                            <option value="Red Velvet">Red Velvet</option>
+                            <option value="Zanahoria con Nuez">Zanahoria con Nuez</option>
+                            <option value="Limón - Fresa">Limón - Fresa</option>
+                            <option value="Otro Sabor">Otro (Específica en notas)</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Fecha del Evento</label>
+                        <input type="date" class="form-control py-2 rounded-3 border-light-subtle shadow-none" @bind="fechaEvento" />
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label fw-bold">Temática / Personaje</label>
+                        <input type="text" class="form-control py-2 rounded-3 border-light-subtle shadow-none" placeholder="Ej. Toy Story, Unicornios, Boda Elegante" @bind="tematica" />
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label fw-bold">Especificaciones / Detalles Extra</label>
+                        <textarea class="form-control rounded-3 border-light-subtle shadow-none" rows="4" placeholder="Compártenos más detalles como colores preferidos, si tienes alguna alergia o ideas de diseño específicas..." @bind="detalles"></textarea>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button class="btn btn-premium w-100 py-3 fs-5" @onclick="EnviarWhatsApp">
+                        <i class="fab fa-whatsapp me-2"></i>Enviar y Abrir WhatsApp
+                    </button>
+                    <p class="text-center text-muted small mt-2 mb-0">El mensaje se pre-llenará automáticamente con todos tus datos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preview Column -->
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100 d-flex flex-column justify-content-between">
+                <div>
+                    <h3 class="font-heading fw-bold mb-4 pb-2 border-bottom"><i class="fas fa-eye me-2 text-pink" style="color: var(--color-pink);"></i>Vista Previa del Mensaje</h3>
+                    
+                    <div class="p-3 bg-light rounded-4 border border-light" style="font-family: monospace; white-space: pre-wrap; font-size: 0.9rem; line-height: 1.5; min-height: 250px;">
+@GetFormattedMessage()
+                    </div>
+                </div>
+
+                <div class="mt-4 p-3 rounded-4 bg-pink-light border border-light" style="background-color: var(--color-pink-light);">
+                    <h5 class="fw-bold mb-2 text-pink" style="color: var(--color-pink);"><i class="fas fa-info-circle me-2"></i>Información Importante</h5>
+                    <ul class="small text-muted mb-0 ps-3">
+                        <li>Los pedidos personalizados requieren al menos <strong>5 días de anticipación</strong>.</li>
+                        <li>Para apartar tu fecha solicitamos un <strong>anticipo del 50%</strong>.</li>
+                        <li>Hacemos entregas a domicilio con costo extra o entrega gratuita en nuestro taller.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string nombre = "";
+    private string tipoPostre = "Pastel de Diseño";
+    private int cantidad = 15;
+    private string sabor = "Chocolate Intenso";
+    private DateTime? fechaEvento = DateTime.Today.AddDays(7);
+    private string tematica = "";
+    private string detalles = "";
+
+    private string GetFormattedMessage()
+    {
+        var text = $"Hola Chokolocos!\n\n" +
+                   $"Me interesa una cotización de repostería. Aquí están mis detalles:\n\n" +
+                   $"👤 *Nombre:* {(string.IsNullOrWhiteSpace(nombre) ? "___" : nombre)}\n" +
+                   $"🍰 *Postre:* {tipoPostre}\n" +
+                   $"🔢 *Porciones/Piezas:* {cantidad}\n" +
+                   $"🍰 *Sabor:* {sabor}\n" +
+                   $"📅 *Fecha del Evento:* {(fechaEvento.HasValue ? fechaEvento.Value.ToString("dd/MM/yyyy") : "___")}\n" +
+                   $"🎨 *Temática:* {(string.IsNullOrWhiteSpace(tematica) ? "___" : tematica)}\n";
+
+        if (!string.IsNullOrWhiteSpace(detalles))
+        {
+            text += $"📝 *Notas adicionales:* {detalles}\n";
+        }
+
+        text += $"\nQuedo al pendiente, ¡gracias!";
+        return text;
+    }
+
+    private void EnviarWhatsApp()
+    {
+        if (string.IsNullOrWhiteSpace(nombre))
+        {
+            // Podríamos validar, pero por simplicidad de UI llenamos con anónimo si está vacío
+            nombre = "Cliente Web";
+        }
+        var message = GetFormattedMessage();
+        var url = $"https://wa.me/15531914321?text={Uri.EscapeDataString(message)}";
+        Navigation.NavigateTo(url);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("inicializarCatalogo");
+        }
+    }
+}

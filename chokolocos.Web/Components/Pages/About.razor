@@ -1,37 +1,126 @@
-﻿@page "/about"
+@page "/about"
+@inject IJSRuntime JS
 
-<PageTitle>Acerca De</PageTitle>
+<PageTitle>Nosotros | chokolocos</PageTitle>
 
-<div class="p-3 content">
-    <section class=" mb-4 card shadow-sm bg-body-tertiary rounded">
-        <div class="card-body">
-            <h3>Acerca de</h3>
+<div class="py-4 reveal">
+    <div class="text-center mb-5">
+        <span class="deli-cake text-pink h1" style="color: var(--color-pink);">chokolocos</span>
+        <h1 class="font-heading display-4 fw-bold mt-2">Nuestra Historia</h1>
+        <p class="text-muted fs-5">La pasión detrás de cada pizca de azúcar</p>
+    </div>
 
-            <article>
-                <p>
-                    <strong>chokolocos</strong> es una marca creada y diseñada por Leesly Meléndez desde <em>2022</em>
+    <!-- Story Card -->
+    <div class="card glass-card border-0 p-4 p-md-5 mb-5 shadow-sm">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-7 text-center text-lg-start">
+                <h2 class="font-heading fw-bold mb-3">Amor por la Repostería Creativa</h2>
+                <p class="text-muted" style="line-height: 1.7; font-weight: 300;">
+                    <strong>chokolocos</strong> es una marca mexicana de repostería artística, creada y diseñada con amor por <strong>Leesly Meléndez</strong> desde <strong>2022</strong>.
                 </p>
-            </article>
-
-            <img class="rounded mx-auto d-block" src="img\chokolocos_logo.png" alt="logo chokolocos" style="max-height:200px; max-width:100%;" />
-
+                <p class="text-muted" style="line-height: 1.7; font-weight: 300;">
+                    Nuestra misión es transformar tus celebraciones en momentos mágicos a través del diseño. Creemos firmemente que un pastel no solo debe ser el centro de atención visual de tu mesa de dulces, sino también un postre delicioso que despierte sonrisas en cada bocado.
+                </p>
+                <p class="text-muted" style="line-height: 1.7; font-weight: 300;">
+                    Nos especializamos en técnicas avanzadas de decoración con fondant, modelado a mano y el minucioso arte del Royal Icing en galletas personalizadas de mantequilla.
+                </p>
+            </div>
+            <div class="col-lg-5 text-center">
+                <div class="p-3 bg-white rounded-5 shadow-sm border border-light d-inline-block">
+                    <img class="img-fluid rounded-4" src="img/chokolocos_logo.png" alt="Logo Chokolocos" style="max-height: 250px; object-fit: contain;" />
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
 
-    <section class=" mb-4 card shadow-sm bg-body-tertiary rounded">
-        <div class="card-body">
-            <h5 class="card-title">Creditos y enlaces</h5>
-            <ul>
-                <li>
-                    <a href="https://www.vecteezy.com/free-vector/bakery">Bakery Vectors by Vecteezy</a>
-                </li>
-            </ul>
+    <!-- Timeline Section -->
+    <div class="mb-5">
+        <h2 class="font-heading text-center display-5 fw-bold mb-5">El Camino Recorrido</h2>
+        
+        <div class="timeline-container position-relative py-3">
+            <div class="timeline-line"></div>
+            
+            <div class="row g-4 timeline-item mb-4 align-items-center">
+                <div class="col-md-3 text-md-end text-center">
+                    <span class="badge bg-pink px-4 py-2 fs-5 rounded-pill" style="background-color: var(--color-pink);">2022</span>
+                </div>
+                <div class="col-md-9">
+                    <div class="card border-0 shadow-sm p-4 bg-white rounded-4">
+                        <h4 class="font-heading fw-bold mb-2">Fundación y Primeros Horneos</h4>
+                        <p class="text-muted small mb-0">Leesly Meléndez inició el proyecto desde su cocina, horneando los primeros pasteles y galletas temáticas para familiares y amigos, descubriendo una enorme pasión por el diseño en azúcar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 timeline-item mb-4 align-items-center">
+                <div class="col-md-3 text-md-end text-center">
+                    <span class="badge bg-mint px-4 py-2 fs-5 rounded-pill" style="background-color: var(--color-mint);">2023</span>
+                </div>
+                <div class="col-md-9">
+                    <div class="card border-0 shadow-sm p-4 bg-white rounded-4">
+                        <h4 class="font-heading fw-bold mb-2">Especialización e Identidad</h4>
+                        <p class="text-muted small mb-0">Comenzamos a dominar el arte del glaseado real (Royal Icing) y fondant texturizado. Rediseñamos nuestra marca bajo el nombre de <strong>chokolocos</strong> y expandimos el catálogo a galletas de personajes detallados.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 timeline-item align-items-center">
+                <div class="col-md-3 text-md-end text-center">
+                    <span class="badge bg-dark text-white px-4 py-2 fs-5 rounded-pill" style="background-color: var(--color-dark);">2024 - Presente</span>
+                </div>
+                <div class="col-md-9">
+                    <div class="card border-0 shadow-sm p-4 bg-white rounded-4">
+                        <h4 class="font-heading fw-bold mb-2">Comunidad y Crecimiento</h4>
+                        <p class="text-muted small mb-0">Con decenas de eventos atendidos, desde bodas elegantes hasta coloridos cumpleaños infantiles, nos convertimos en referentes locales de repostería creativa y expandimos nuestros canales de entrega a domicilio.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
 
+    <!-- Credits Card -->
+    <div class="card border-0 shadow-sm p-4 bg-white rounded-4">
+        <h3 class="font-heading h5 fw-bold mb-3"><i class="fas fa-award me-2 text-warning"></i>Créditos y Agradecimientos</h3>
+        <p class="text-muted small mb-3">
+            Agradecemos a todos nuestros clientes por hacernos partícipes de sus eventos más significativos. También reconocemos el trabajo creativo de terceros que apoyaron en el diseño inicial:
+        </p>
+        <ul class="mb-0 small text-muted">
+            <li>
+                Ilustraciones y vectores de repostería cortesía de <a href="https://www.vecteezy.com/free-vector/bakery" target="_blank" class="text-pink text-decoration-none" style="color: var(--color-pink);">Bakery Vectors by Vecteezy</a>.
+            </li>
+        </ul>
+    </div>
 </div>
 
+<style>
+    .timeline-container::before {
+        content: '';
+        position: absolute;
+        width: 4px;
+        background-color: rgba(229, 95, 157, 0.15);
+        top: 0;
+        bottom: 0;
+        left: 20px;
+    }
+
+    @@media (min-width: 768px) {
+        .timeline-container::before {
+            left: 25%;
+            margin-left: -2px;
+        }
+    }
+
+    .timeline-line {
+        display: none;
+    }
+</style>
 
 @code {
-
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("inicializarCatalogo");
+        }
+    }
 }

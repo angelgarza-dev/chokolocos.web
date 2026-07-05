@@ -1,96 +1,265 @@
-﻿@using chokolocos.Web.Models;
+@page "/"
+@page "/home"
+@using chokolocos.Web.Models
 @inject IJSRuntime JS
 
-@page "/home"
+<PageTitle>Inicio | chokolocos</PageTitle>
 
-<PageTitle>Home</PageTitle>
+<!-- Hero Section -->
+<section class="hero-section row align-items-center py-5 mb-5 reveal">
+    <div class="col-lg-6 mb-4 mb-lg-0 text-center text-lg-start">
+        <h1 class="sweets-delight display-1 mb-3 text-pink" style="color: var(--color-pink);">Momentos Dulces</h1>
+        <h2 class="font-heading fw-bold mb-4" style="font-size: 2.5rem; line-height: 1.2;">Diseños únicos que cobran vida en repostería</h2>
+        <p class="lead text-muted mb-5" style="font-weight: 300; font-size: 1.15rem;">
+            En <strong>chokolocos</strong>, cada pastel, galleta y postre es una obra de arte diseñada a tu medida. Desde 2022 endulzamos tus celebraciones en la Ciudad de México y área metropolitana.
+        </p>
+        <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3">
+            <a class="btn btn-premium px-5 py-3 fs-5 shadow-sm" href="pasteles">
+                <i class="fas fa-birthday-cake me-2"></i>Ver Pasteles
+            </a>
+            <a class="btn btn-premium-outline px-5 py-3 fs-5" href="pedidos">
+                <i class="fab fa-whatsapp me-2"></i>Cotizar Ahora
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-6 text-center">
+        <div class="position-relative d-inline-block">
+            <div class="hero-blob shadow-lg"></div>
+            <img class="img-fluid rounded-circle shadow-lg border border-5 border-white animate-float position-relative" 
+                 src="img/cake/turin_1.jpg" 
+                 alt="Pastel Conejito Turin" 
+                 style="width: 420px; height: 420px; object-fit: cover; z-index: 2;" />
+        </div>
+    </div>
+</section>
 
-<script src="components\pages\home.razor.js"></script>
-
-<h3>Top Productos</h3>
-<div class="contenedor-catalogo">
-    @foreach (var item in Top)
-    {
-        <div class="tarjeta-articulo reveal">
-            <div class="carrusel" data-intervalo="3000">
-                @for (int i = 0; i < item.Pictures.Count; i++)
-                {
-                    <img src="@item.Pictures[i]" class="slide @(i == 0 ? "active" : "")" alt="@item.Name" />
-                }
-            </div>
-            <div class="info">
-                <h3>@item.Name</h3>
-                <p>ID: @item.Id</p>
+<!-- Categories Section -->
+<section class="py-5 mb-5 reveal">
+    <div class="text-center mb-5">
+        <h2 class="font-heading display-4 fw-bold">Nuestras Especialidades</h2>
+        <p class="text-muted fs-5">Descubre el sabor y diseño en cada una de nuestras categorías</p>
+    </div>
+    <div class="row g-4">
+        <!-- Category Pasteles -->
+        <div class="col-md-4">
+            <div class="card glass-card hover-lift h-100 border-0 overflow-hidden">
+                <div class="position-relative" style="height: 240px; overflow: hidden;">
+                    <img src="img/cake/red_velvet_1.jpg" class="card-img-top w-100 h-100 object-fit-cover" alt="Pasteles Chokolocos">
+                    <div class="category-badge">Pasteles</div>
+                </div>
+                <div class="card-body p-4 text-center">
+                    <h3 class="font-heading h4 fw-bold mb-3">Pasteles & Cupcakes</h3>
+                    <p class="text-muted mb-4">Pasteles personalizados en fondant o crema y cupcakes temáticos elaborados con ingredientes premium.</p>
+                    <a class="btn btn-premium-outline w-100" href="pasteles">Ver Catálogo</a>
+                </div>
             </div>
         </div>
-    }
-</div>
 
-
-<h3>Todos nuestros productos</h3>
-<div class="contenedor-catalogo">
-    @foreach (var item in Catalogo)
-    {
-        <div class="tarjeta-articulo reveal">
-            <div class="carrusel" data-intervalo="3000">
-                @for (int i = 0; i < item.Pictures.Count; i++)
-                {
-                    <img src="@item.Pictures[i]" class="slide @(i == 0 ? "active" : "")" alt="@item.Name" />
-                }
-            </div>
-            <div class="info">
-                <h3>@item.Name</h3>
-                <p>ID: @item.Id</p>
+        <!-- Category Galletas -->
+        <div class="col-md-4">
+            <div class="card glass-card hover-lift h-100 border-0 overflow-hidden">
+                <div class="position-relative" style="height: 240px; overflow: hidden;">
+                    <img src="img/cookie/bluey.jpg" class="card-img-top w-100 h-100 object-fit-cover" alt="Galletas Temáticas">
+                    <div class="category-badge bg-mint">Galletas</div>
+                </div>
+                <div class="card-body p-4 text-center">
+                    <h3 class="font-heading h4 fw-bold mb-3">Galletas Temáticas</h3>
+                    <p class="text-muted mb-4">Galletas de mantequilla decoradas con glaseado real. Perfectas para recuerdos, cumpleaños y eventos especiales.</p>
+                    <a class="btn btn-premium-outline w-100" href="galletas">Ver Diseños</a>
+                </div>
             </div>
         </div>
-    }
-</div>
 
+        <!-- Category Pedidos -->
+        <div class="col-md-4">
+            <div class="card glass-card hover-lift h-100 border-0 overflow-hidden">
+                <div class="position-relative" style="height: 240px; overflow: hidden;">
+                    <img src="img/cookie/san_valentin_1.jpg" class="card-img-top w-100 h-100 object-fit-cover" alt="Pedidos Personalizados">
+                    <div class="category-badge bg-dark">Pedidos</div>
+                </div>
+                <div class="card-body p-4 text-center">
+                    <h3 class="font-heading h4 fw-bold mb-3">Pedidos Especiales</h3>
+                    <p class="text-muted mb-4">¿Tienes una temática en mente? Platícanos tu idea y creamos una cotización personalizada de inmediato.</p>
+                    <a class="btn btn-premium w-100" href="pedidos"><i class="fab fa-whatsapp me-2"></i>Cotizar Evento</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
+<!-- Featured Carousel -->
+<section class="py-5 mb-5 bg-white rounded-5 shadow-sm p-4 p-md-5 reveal border border-1 border-light">
+    <div class="text-center mb-5">
+        <h2 class="font-heading display-4 fw-bold">Creaciones Destacadas</h2>
+        <p class="text-muted fs-5">Los favoritos de nuestros clientes</p>
+    </div>
+    
+    <div id="featuredCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="0" class="active bg-pink" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="1" class="bg-pink" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="2" class="bg-pink" aria-label="Slide 3"></button>
+        </div>
+        
+        <div class="carousel-inner rounded-4" style="height: 450px;">
+            <!-- Slide 1 -->
+            <div class="carousel-item active h-100">
+                <div class="row h-100 align-items-center bg-light p-4 rounded-4 m-0">
+                    <div class="col-md-6 text-center text-md-start p-4">
+                        <span class="badge bg-danger mb-2 px-3 py-2">Más Vendido</span>
+                        <h3 class="font-heading display-5 fw-bold mb-3">Pastel Conejito Turin</h3>
+                        <p class="lead text-muted mb-4">Pan de chocolate húmedo relleno de crema de avellanas Turin, decorado con conejitos de chocolate y frosting suave.</p>
+                        <a href="pasteles" class="btn btn-premium">Ver Detalles</a>
+                    </div>
+                    <div class="col-md-6 h-100 p-0 d-none d-md-block">
+                        <img src="img/cake/turin_2.jpg" class="d-block w-100 h-100 object-fit-cover rounded-4" alt="Pastel Turin">
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="carousel-item h-100">
+                <div class="row h-100 align-items-center bg-light p-4 rounded-4 m-0">
+                    <div class="col-md-6 text-center text-md-start p-4">
+                        <span class="badge bg-pink-badge mb-2 px-3 py-2" style="background-color: var(--color-pink); color: white;">Clásico</span>
+                        <h3 class="font-heading display-5 fw-bold mb-3">Pastel Red Velvet</h3>
+                        <p class="lead text-muted mb-4">El clásico terciopelo rojo con un toque de cocoa y un delicioso betún de queso crema suave y terso.</p>
+                        <a href="pasteles" class="btn btn-premium">Ver Detalles</a>
+                    </div>
+                    <div class="col-md-6 h-100 p-0 d-none d-md-block">
+                        <img src="img/cake/red_velvet_1.jpg" class="d-block w-100 h-100 object-fit-cover rounded-4" alt="Red Velvet">
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="carousel-item h-100">
+                <div class="row h-100 align-items-center bg-light p-4 rounded-4 m-0">
+                    <div class="col-md-6 text-center text-md-start p-4">
+                        <span class="badge bg-success mb-2 px-3 py-2">Personalizado</span>
+                        <h3 class="font-heading display-5 fw-bold mb-3">Cupcakes de Diseño</h3>
+                        <p class="lead text-muted mb-4">Cupcakes personalizados para cumpleaños y eventos temáticos. Diseños en fondant y crema con sabores deliciosos.</p>
+                        <a href="pasteles" class="btn btn-premium">Ver Detalles</a>
+                    </div>
+                    <div class="col-md-6 h-100 p-0 d-none d-md-block">
+                        <img src="img/cake/cupcakes_1.jpg" class="d-block w-100 h-100 object-fit-cover rounded-4" alt="Cupcakes">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon p-3 rounded-circle bg-pink" style="background-color: var(--color-pink);" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon p-3 rounded-circle bg-pink" style="background-color: var(--color-pink);" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
+</section>
 
+<!-- Social & Social Feed Section -->
+<section class="py-5 mb-5 reveal">
+    <div class="text-center mb-5">
+        <h2 class="font-heading display-4 fw-bold">Nuestra Comunidad</h2>
+        <p class="text-muted fs-5">Síguenos en nuestras redes sociales para enterarte de nuevos lanzamientos</p>
+    </div>
+
+    <!-- Redes Links -->
+    <div class="d-flex justify-content-center gap-3 mb-5">
+        <a class="btn btn-primary btn-lg rounded-circle d-flex align-items-center justify-content-center hover-lift" style="background-color: #3b5998; width: 60px; height: 60px;" href="https://www.facebook.com/103492021490449" target="_blank">
+            <i class="fab fa-facebook-f fa-lg"></i>
+        </a>
+        <a class="btn btn-primary btn-lg rounded-circle d-flex align-items-center justify-content-center hover-lift" style="background-color: #ac2bac; width: 60px; height: 60px;" href="https://www.instagram.com/choko.locos" target="_blank">
+            <i class="fab fa-instagram fa-lg"></i>
+        </a>
+        <a class="btn btn-primary btn-lg rounded-circle d-flex align-items-center justify-content-center hover-lift" style="background-color: #333333; width: 60px; height: 60px;" href="https://www.tiktok.com/@@chokolocos.2" target="_blank">
+            <i class="fab fa-tiktok fa-lg"></i>
+        </a>
+        <a class="btn btn-primary btn-lg rounded-circle d-flex align-items-center justify-content-center hover-lift" style="background-color: #25d366; width: 60px; height: 60px;" href="https://wa.me/15531914321" target="_blank">
+            <i class="fab fa-whatsapp fa-lg"></i>
+        </a>
+    </div>
+
+    <!-- Social Feeds -->
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+                <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+                    <h4 class="font-heading fw-bold m-0"><i class="fab fa-facebook me-2 text-primary"></i>Publicaciones de Facebook</h4>
+                    <a href="https://www.facebook.com/103492021490449" target="_blank" class="small text-pink text-decoration-none" style="color: var(--color-pink);">Ver Página</a>
+                </div>
+                <iframe src="https://widgets.sociablekit.com/facebook-page-posts/iframe/25662907" frameborder="0" width="100%" height="450px" class="rounded-3"></iframe>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+                <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+                    <h4 class="font-heading fw-bold m-0"><i class="fab fa-instagram me-2 text-danger"></i>Feed de Instagram</h4>
+                    <a href="https://www.instagram.com/choko.locos" target="_blank" class="small text-pink text-decoration-none" style="color: var(--color-pink);">Ver Perfil</a>
+                </div>
+                <iframe src="https://widgets.sociablekit.com/instagram-feed/iframe/25662901" frameborder="0" width="100%" height="450px" class="rounded-3"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
 
 @code {
-
-    private List<Item> Top = new();
-    public List<Item> Catalogo = new();
-
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        Top = Enumerable.Range(1, 4).Select(i => new Item
-        {
-            Id = i,
-            Name = $"Artículo #{i}",
-            Pictures = new List<string>
-            {
-                "https://sugargeekshow.com/wp-content/uploads/2018/06/gluten-free-cake-featured.jpg",
-            },
-            Link = ""
-        }).ToList();
-
-        Catalogo = Enumerable.Range(1, 30).Select(i => new Item
-        {
-            Id = i,
-            Name = $"Artículo #{i}",
-            Pictures = new List<string>
-            {
-                "https://plus.unsplash.com/premium_photo-1690214491960-d447e38d0bd0?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                "https://images.unsplash.com/photo-1602351447937-745cb720612f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2FrZXxlbnwwfHwwfHx8MA%3D%3D",
-                "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            },
-            Link = ""
-        }).ToList();
-    }
-
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            // Llamamos a JavaScript para activar el observador de scroll y el carrusel
             await JS.InvokeVoidAsync("inicializarCatalogo");
         }
     }
-
 }
+
+<style>
+    .hero-blob {
+        position: absolute;
+        width: 380px;
+        height: 380px;
+        background: radial-gradient(circle, rgba(229,95,157,0.2) 0%, rgba(229,95,157,0.05) 70%);
+        border-radius: 50% 30% 70% 40% / 50% 60% 30% 60%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        animation: morph 8s ease-in-out infinite;
+    }
+
+    @@keyframes morph {
+        0% { border-radius: 50% 30% 70% 40% / 50% 60% 30% 60%; }
+        50% { border-radius: 30% 60% 40% 70% / 60% 30% 70% 30%; }
+        100% { border-radius: 50% 30% 70% 40% / 50% 60% 30% 60%; }
+    }
+
+    .category-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background-color: var(--color-pink);
+        color: white;
+        padding: 5px 15px;
+        font-weight: 600;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        z-index: 3;
+    }
+
+    .category-badge.bg-mint {
+        background-color: var(--color-mint);
+    }
+
+    .category-badge.bg-dark {
+        background-color: var(--color-dark);
+    }
+
+    .bg-pink {
+        background-color: var(--color-pink) !important;
+    }
+
+    .object-fit-cover {
+        object-fit: cover;
+    }
+</style>

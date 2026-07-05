@@ -1,5 +1,23 @@
+:root {
+    --color-pink: hsl(330, 80%, 65%);
+    --color-pink-light: hsl(330, 100%, 98%);
+    --color-pink-dark: hsl(330, 70%, 50%);
+    --color-mint: hsl(158, 60%, 45%);
+    --color-mint-light: hsl(158, 40%, 96%);
+    --color-dark: #2d1c25;
+    --color-cream: #fffafb;
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Outfit', sans-serif;
+    --shadow-soft: 0 10px 30px -10px rgba(229, 95, 157, 0.15);
+    --shadow-hover: 0 20px 40px -15px rgba(229, 95, 157, 0.25);
+    --radius-lg: 16px;
+    --radius-md: 12px;
+}
+
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: var(--font-body);
+    background-color: var(--color-pink-light);
+    color: var(--color-dark);
 }
 
 a, .btn-link {
@@ -55,21 +73,152 @@ h1:focus {
     text-align: start;
 }
 
-/*custom styles*/
+/* Custom Premium Redesign Styles */
+
+.font-heading {
+    font-family: var(--font-heading);
+}
 
 .primary-color {
-    color: #3EB489;
+    color: var(--color-mint);
 }
 
 .bg-color {
-    background: #f8b8dd;
+    background: var(--color-pink-light);
 }
 
 .navbar-background {
-    background: linear-gradient(90deg,rgba(62, 180, 137, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(126, 211, 179, 1) 100%);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(229, 95, 157, 0.1);
 }
 
 .bg-primary-color {
-    background: #E55F9D;
-    background: linear-gradient(90deg, rgba(229, 95, 157, 1) 0%, rgba(236, 139, 185, 1) 50%, rgba(240, 165, 200, 1) 100%);
+    background: linear-gradient(135deg, var(--color-pink) 0%, var(--color-pink-dark) 100%);
 }
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: var(--shadow-soft);
+    border-radius: var(--radius-lg);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-lift {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-lift:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: var(--shadow-hover) !important;
+}
+
+/* Animations */
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(1deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scroll reveal class defaults */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Interactive underline for modern links */
+.nav-link-animated {
+    position: relative;
+    color: var(--color-dark) !important;
+    font-weight: 500;
+    transition: color 0.25s ease;
+}
+
+.nav-link-animated:hover {
+    color: var(--color-pink) !important;
+}
+
+.nav-link-animated::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--color-pink);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.nav-link-animated:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.btn-premium {
+    background: linear-gradient(135deg, var(--color-pink) 0%, var(--color-pink-dark) 100%);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(229, 95, 157, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(229, 95, 157, 0.4);
+    color: white;
+}
+
+.btn-premium:active {
+    transform: translateY(0);
+}
+
+.btn-premium-outline {
+    background: transparent;
+    color: var(--color-pink);
+    border: 2px solid var(--color-pink);
+    padding: 8px 22px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-premium-outline:hover {
+    background: var(--color-pink);
+    color: white;
+    box-shadow: 0 4px 15px rgba(229, 95, 157, 0.2);
+}
+
