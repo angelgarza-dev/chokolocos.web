@@ -1,16 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="chokolocos.dashboard.ServiceDefaults">
-      <HintPath>..\..\chokolocos.dashboard\chokolocos.dashboard.ServiceDefaults\bin\Release\net8.0\publish\chokolocos.dashboard.ServiceDefaults.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\img\cake\" />

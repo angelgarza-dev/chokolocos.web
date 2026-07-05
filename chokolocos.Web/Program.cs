@@ -5,7 +5,7 @@ using chokolocos.Web.Components;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire client integrations.
-builder.AddServiceDefaults();
+//builder.AddServiceDefaults();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
@@ -39,6 +39,6 @@ app.UseOutputCache();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-app.MapDefaultEndpoints();
+//app.MapDefaultEndpoints();
 
 app.Run();
