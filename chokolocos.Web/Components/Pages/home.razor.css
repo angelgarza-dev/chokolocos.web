@@ -1,42 +1,56 @@
-﻿/* Estilos de la Tarjeta */
-.contenedor-catalogo {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
+﻿.hero-blob {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, rgba(229,95,157,0.2) 0%, rgba(229,95,157,0.05) 70%);
+    border-radius: 50% 30% 70% 40% / 50% 60% 30% 60%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    animation: morph 8s ease-in-out infinite;
 }
 
-.tarjeta-articulo {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    background: white;
-    opacity: 0; /* Inicialmente invisible para la animación */
-    transform: translateY(30px);
-    transition: all 0.6s ease-out;
-}
-
-/* Clase que activa la animación al hacer scroll */
-    .tarjeta-articulo.visible {
-        opacity: 1;
-        transform: translateY(0);
+@keyframes morph {
+    0% {
+        border-radius: 50% 30% 70% 40% / 50% 60% 30% 60%;
     }
 
-/* Estilos del Carrusel Interno */
-.carrusel {
-    position: relative;
-    height: 200px;
+    50% {
+        border-radius: 30% 60% 40% 70% / 60% 30% 70% 30%;
+    }
+
+    100% {
+        border-radius: 50% 30% 70% 40% / 50% 60% 30% 60%;
+    }
 }
 
-.slide {
-  /*  position: absolute;*/
-    width: 300px;
-    height: 300px;
+.category-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--color-pink);
+    color: white;
+    padding: 5px 15px;
+    font-weight: 600;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 3;
+}
+
+    .category-badge.bg-mint {
+        background-color: var(--color-mint);
+    }
+
+    .category-badge.bg-dark {
+        background-color: var(--color-dark);
+    }
+
+.bg-pink {
+    background-color: var(--color-pink) !important;
+}
+
+.object-fit-cover {
     object-fit: cover;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
 }
-
-    .slide.active {
-        opacity: 1;
-    }
