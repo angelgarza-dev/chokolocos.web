@@ -137,14 +137,14 @@
             Id = 1,
             Name = "Rosas de Chocolate",
             Description = "Hermosas fresas frescas de temporada cuidadosamente seleccionadas, cubiertas con delicioso chocolate de color rojo y decoradas con líneas finas. Agrupadas artísticamente con envolturas florales premium para simular un elegante ramo de rosas.",
-            Pictures = new List<string> { "https://images.unsplash.com/photo-1594911774802-8822a707cbb3?q=80&w=600&auto=format&fit=crop" }
+            Pictures = new List<string> { "img/gift/rosas_chocolate.jpg" }
         },
         new ArrangementItem
         {
             Id = 2,
             Name = "Ramo de Galletas en Flor",
             Description = "Arreglo decorativo y comestible compuesto por galletas de vainilla horneadas en brochetas y decoradas minuciosamente con Royal Icing en forma de margaritas, rosas y hojas. Envasado en un ramo de regalo o en una linda maceta artesanal.",
-            Pictures = new List<string> { "https://images.unsplash.com/photo-1519060268576-f405891199a4?q=80&w=600&auto=format&fit=crop" }
+            Pictures = new List<string> { "img/gift/rosas_galleta.jpg" }
         }
     };
 
@@ -167,7 +167,7 @@
     private string GetWhatsAppLink(ArrangementItem item)
     {
         var text = $"Hola Chokolocos! Me interesa cotizar el arreglo comestible *{item.Name}* en la presentación de *{selectedPresentation}* que vi en su catálogo web.";
-        return $"https://wa.me/15531914321?text={Uri.EscapeDataString(text)}";
+        return $"https://wa.me/15511960974?text={Uri.EscapeDataString(text)}";
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

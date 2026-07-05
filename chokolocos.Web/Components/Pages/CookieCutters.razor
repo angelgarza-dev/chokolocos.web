@@ -155,14 +155,14 @@
             Id = 1,
             Name = "Cortadores Personalizados",
             Description = "Creamos moldes únicos con base en tu logotipo de negocio, dibujos a mano, siluetas vectoriales o personajes de caricatura. Excelente filo y paredes reforzadas para un corte perfecto en masa.",
-            Pictures = new List<string> { "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?q=80&w=600&auto=format&fit=crop" }
+            Pictures = new List<string> { "img/cookie_cutters/cortadores_galleta_bautiso.jpg" }
         },
         new CutterItem
         {
             Id = 2,
             Name = "Cortadores de Colección Temática",
             Description = "Sets completos de cortadores para repostería festiva y de temporada: abecedarios, figuras geométricas clásicas, y sets especiales para San Valentín, Halloween, Navidad y Pascua.",
-            Pictures = new List<string> { "https://images.unsplash.com/photo-1517433367423-c7e5b0f35086?q=80&w=600&auto=format&fit=crop" }
+            Pictures = new List<string> { "img/cookie_cutters/cortador_alien.jpg" }
         }
     };
 
@@ -186,7 +186,7 @@
     private string GetWhatsAppLink(CutterItem item)
     {
         var text = $"Hola Chokolocos! Me interesa cotizar un cortador *{item.Name}* con un tamaño de *{selectedSize} cm* en color *{selectedColor}* que vi en su catálogo.";
-        return $"https://wa.me/15531914321?text={Uri.EscapeDataString(text)}";
+        return $"https://wa.me/15511960974?text={Uri.EscapeDataString(text)}";
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
