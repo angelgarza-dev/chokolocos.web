@@ -18,11 +18,17 @@
                         <li class="nav-item my-1 my-lg-0">
                             <NavLink class="nav-link nav-link-animated mx-3 px-0" href="" Match="NavLinkMatch.All">Inicio</NavLink>
                         </li>
-                        <li class="nav-item my-1 my-lg-0">
-                            <NavLink class="nav-link nav-link-animated mx-3 px-0" href="pasteles">Pasteles</NavLink>
-                        </li>
-                        <li class="nav-item my-1 my-lg-0">
-                            <NavLink class="nav-link nav-link-animated mx-3 px-0" href="galletas">Galletas</NavLink>
+                        <li class="nav-item dropdown my-1 my-lg-0">
+                            <a class="nav-link dropdown-toggle nav-link-animated mx-3 px-0" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Catálogo
+                            </a>
+                            <ul class="dropdown-menu border-0 shadow-lg rounded-3 py-2 mt-2" aria-labelledby="navbarDropdownMenuLink" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+                                <li><NavLink class="dropdown-item py-2 px-3 fw-medium" href="pasteles">Pasteles & Cupcakes</NavLink></li>
+                                <li><NavLink class="dropdown-item py-2 px-3 fw-medium" href="tartas">Tartas & Pays</NavLink></li>
+                                <li><NavLink class="dropdown-item py-2 px-3 fw-medium" href="galletas">Galletas Decoradas</NavLink></li>
+                                <li><NavLink class="dropdown-item py-2 px-3 fw-medium" href="cortadores">Cortadores de Galleta</NavLink></li>
+                                <li><NavLink class="dropdown-item py-2 px-3 fw-medium" href="arreglos">Arreglos Comestibles</NavLink></li>
+                            </ul>
                         </li>
                         <li class="nav-item my-1 my-lg-0">
                             <NavLink class="nav-link nav-link-animated mx-3 px-0" href="pedidos">Pedidos</NavLink>
@@ -85,5 +91,24 @@
     .hover-pink:hover {
         color: var(--color-pink) !important;
         transition: color 0.2s;
+    }
+    .dropdown-item {
+        color: var(--color-dark);
+        transition: background-color 0.2s, color 0.2s;
+    }
+    .dropdown-item:hover {
+        background-color: var(--color-pink-light);
+        color: var(--color-pink-dark);
+    }
+    .dropdown-item.active, .dropdown-item:active {
+        background-color: var(--color-pink);
+        color: white;
+    }
+    /* Hover dropdown on desktop */
+    @@media (min-width: 992px) {
+        .nav-item.dropdown:hover .dropdown-menu {
+            display: block;
+            margin-top: 0; 
+        }
     }
 </style>

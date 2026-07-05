@@ -1,0 +1,221 @@
+@page "/cortadores"
+@using chokolocos.Web.Models
+@inject IJSRuntime JS
+
+<PageTitle>Cortadores de Galleta | chokolocos</PageTitle>
+
+<div class="py-4 reveal">
+    <div class="text-center mb-5">
+        <span class="deli-cake text-pink h1" style="color: var(--color-pink);">chokolocos</span>
+        <h1 class="font-heading display-4 fw-bold mt-2">Cortadores de Galleta</h1>
+        <p class="text-muted fs-5">Cortadores impresos en 3D en plástico grado alimenticio (PLA)</p>
+    </div>
+
+    <!-- Intro Text -->
+    <div class="text-center max-w-700 mx-auto mb-5 p-4 rounded-4 bg-white shadow-sm border border-light">
+        <p class="mb-0 text-muted" style="line-height: 1.6;">
+            ¿Tienes una silueta, logotipo o temática especial en mente? Diseñamos e imprimimos cortadores personalizados en una amplia gama de colores y tamaños que van desde los 5 cm hasta los 20 cm. Fabricados con filamento PLA de origen vegetal, 100% seguros para alimentos.
+        </p>
+    </div>
+
+    <!-- Catalog Grid -->
+    <div class="row g-4">
+        @foreach (var item in items)
+        {
+            <div class="col-md-6">
+                <div class="card glass-card hover-lift h-100 border-0 overflow-hidden shadow-sm">
+                    <div class="position-relative" style="height: 280px;">
+                        <img src="@item.Pictures[0]" class="card-img-top w-100 h-100 object-fit-cover" alt="@item.Name">
+                        <div class="category-badge bg-mint">Cortadores</div>
+                    </div>
+                    <div class="card-body p-4 d-flex flex-column justify-content-between">
+                        <div>
+                            <h3 class="font-heading h4 fw-bold mb-2">@item.Name</h3>
+                            <p class="text-muted small mb-4">@item.Description</p>
+                            <div class="mb-3 d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark border">Cualquier Silueta</span>
+                                <span class="badge bg-light text-dark border">Hasta 20 cm</span>
+                                <span class="badge bg-light text-dark border">Varios Colores</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-premium w-100 mt-2" @onclick="() => AbrirModal(item)">
+                            Personalizar Medidas
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Details Modal -->
+@if (selectedItem != null)
+{
+    <div class="modal-backdrop fade show" style="z-index: 1040;"></div>
+    <div class="modal fade show d-block" tabindex="-1" style="z-index: 1050; background: rgba(45, 28, 37, 0.4); backdrop-filter: blur(4px);" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content glass-card border-0 shadow-lg p-3">
+                <div class="modal-header border-0 pb-0">
+                    <h2 class="font-heading fw-bold modal-title">@selectedItem.Name</h2>
+                    <button type="button" class="btn-close shadow-none" @onclick="CerrarModal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-4">
+                    <div class="row g-4">
+                        <!-- Image Column -->
+                        <div class="col-md-6">
+                            <div class="rounded-4 overflow-hidden shadow-sm" style="height: 320px;">
+                                <img src="@selectedItem.Pictures[0]" class="w-100 h-100 object-fit-cover" alt="@selectedItem.Name">
+                            </div>
+                        </div>
+
+                        <!-- Config Column -->
+                        <div class="col-md-6 d-flex flex-column justify-content-between">
+                            <div>
+                                <h5 class="fw-bold text-pink mb-2" style="color: var(--color-pink);"><i class="fas fa-info-circle me-2"></i>Especificaciones</h5>
+                                <p class="text-muted small">@selectedItem.Description</p>
+                                
+                                <hr class="my-3 opacity-25">
+                                
+                                <!-- Size Slider -->
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h6 class="fw-bold mb-0">Tamaño del Cortador:</h6>
+                                        <span class="text-pink fw-bold" style="color: var(--color-pink);">@selectedSize cm</span>
+                                    </div>
+                                    <input type="range" class="form-range" min="5" max="20" step="1" @bind="selectedSize" />
+                                    <div class="d-flex justify-content-between text-muted small mt-1">
+                                        <span>Min: 5 cm</span>
+                                        <span>Max: 20 cm</span>
+                                    </div>
+                                </div>
+
+                                <!-- Color Picker -->
+                                <div class="mb-3">
+                                    <h6 class="fw-bold mb-2">Elige el Color del Plástico:</h6>
+                                    <div class="d-flex gap-2 align-items-center">
+                                        @foreach (var color in colors)
+                                        {
+                                            <button class="color-dot-btn rounded-circle border @(selectedColor == color.Name ? "ring-active" : "")" 
+                                                    style="background-color: @color.Hex; width: 36px; height: 36px;" 
+                                                    title="@color.Name"
+                                                    @onclick="() => SetColor(color.Name)">
+                                            </button>
+                                        }
+                                    </div>
+                                    <p class="small text-muted mt-2">Seleccionado: <strong>@selectedColor</strong></p>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <a class="btn btn-premium w-100 py-3 fs-5" href="@GetWhatsAppLink(selectedItem)" target="_blank">
+                                    <i class="fab fa-whatsapp me-2"></i>Cotizar en @selectedSize cm (@selectedColor)
+                                </a>
+                                <p class="text-center text-muted small mt-2 mb-0">Material: PLA grado alimenticio ecológico</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private CutterItem? selectedItem = null;
+    private int selectedSize = 10;
+    private string selectedColor = "Rosa Pastel";
+
+    private class ColorOption
+    {
+        public required string Name { get; set; }
+        public required string Hex { get; set; }
+    }
+
+    private List<ColorOption> colors = new()
+    {
+        new ColorOption { Name = "Rosa Pastel", Hex = "#ffc0cb" },
+        new ColorOption { Name = "Menta", Hex = "#98ffca" },
+        new ColorOption { Name = "Azul Celeste", Hex = "#87ceeb" },
+        new ColorOption { Name = "Blanco Nieve", Hex = "#ffffff" },
+        new ColorOption { Name = "Amarillo Sol", Hex = "#fff275" }
+    };
+
+    private class CutterItem
+    {
+        public int Id { get; set; }
+        public required string Name { get; set; }
+        public required string Description { get; set; }
+        public required List<string> Pictures { get; set; }
+    }
+
+    private List<CutterItem> items = new()
+    {
+        new CutterItem
+        {
+            Id = 1,
+            Name = "Cortadores Personalizados",
+            Description = "Creamos moldes únicos con base en tu logotipo de negocio, dibujos a mano, siluetas vectoriales o personajes de caricatura. Excelente filo y paredes reforzadas para un corte perfecto en masa.",
+            Pictures = new List<string> { "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?q=80&w=600&auto=format&fit=crop" }
+        },
+        new CutterItem
+        {
+            Id = 2,
+            Name = "Cortadores de Colección Temática",
+            Description = "Sets completos de cortadores para repostería festiva y de temporada: abecedarios, figuras geométricas clásicas, y sets especiales para San Valentín, Halloween, Navidad y Pascua.",
+            Pictures = new List<string> { "https://images.unsplash.com/photo-1517433367423-c7e5b0f35086?q=80&w=600&auto=format&fit=crop" }
+        }
+    };
+
+    private void AbrirModal(CutterItem item)
+    {
+        selectedItem = item;
+        selectedSize = 10;
+        selectedColor = "Rosa Pastel";
+    }
+
+    private void CerrarModal()
+    {
+        selectedItem = null;
+    }
+
+    private void SetColor(string colorName)
+    {
+        selectedColor = colorName;
+    }
+
+    private string GetWhatsAppLink(CutterItem item)
+    {
+        var text = $"Hola Chokolocos! Me interesa cotizar un cortador *{item.Name}* con un tamaño de *{selectedSize} cm* en color *{selectedColor}* que vi en su catálogo.";
+        return $"https://wa.me/15531914321?text={Uri.EscapeDataString(text)}";
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("inicializarCatalogo");
+        }
+    }
+}
+
+<style>
+    .max-w-700 {
+        max-width: 700px;
+    }
+    .color-dot-btn {
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .color-dot-btn:hover {
+        transform: scale(1.1);
+    }
+    .ring-active {
+        outline: 3px solid var(--color-pink);
+        box-shadow: 0 0 10px rgba(229, 95, 157, 0.4);
+    }
+    .form-range::-webkit-slider-thumb {
+        background: var(--color-pink);
+    }
+    .form-range::-moz-range-thumb {
+        background: var(--color-pink);
+    }
+</style>

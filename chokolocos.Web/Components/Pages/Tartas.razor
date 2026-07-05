@@ -1,0 +1,204 @@
+@page "/tartas"
+@using chokolocos.Web.Models
+@inject IJSRuntime JS
+
+<PageTitle>Tartas y Strudels | chokolocos</PageTitle>
+
+<div class="py-4 reveal">
+    <div class="text-center mb-5">
+        <span class="deli-cake text-pink h1" style="color: var(--color-pink);">chokolocos</span>
+        <h1 class="font-heading display-4 fw-bold mt-2">Tartas & Strudels</h1>
+        <p class="text-muted fs-5">Masa crujiente y rellenos tradicionales horneados al día</p>
+    </div>
+
+    <!-- Intro Text -->
+    <div class="text-center max-w-700 mx-auto mb-5 p-4 rounded-4 bg-white shadow-sm border border-light">
+        <p class="mb-0 text-muted" style="line-height: 1.6;">
+            Nuestras tartas y strudels combinan recetas europeas clásicas con frutas seleccionadas. Disponibles en 3 tamaños para adaptarse a tus celebraciones: Individual (1 a 2 porc.), Tradicional (6 a 8 porc.) y Familiar (8 a 15 porc.).
+        </p>
+    </div>
+
+    <!-- Catalog Grid -->
+    <div class="row g-4">
+        @foreach (var item in items)
+        {
+            <div class="col-md-6">
+                <div class="card glass-card hover-lift h-100 border-0 overflow-hidden shadow-sm">
+                    <div class="position-relative" style="height: 280px;">
+                        <img src="@item.Pictures[0]" class="card-img-top w-100 h-100 object-fit-cover" alt="@item.Name">
+                        <div class="category-badge">Tartas</div>
+                    </div>
+                    <div class="card-body p-4 d-flex flex-column justify-content-between">
+                        <div>
+                            <h3 class="font-heading h4 fw-bold mb-2">@item.Name</h3>
+                            <p class="text-muted small mb-4">@item.Description</p>
+                            <div class="mb-3 d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark border">Individual (1-2 porc.)</span>
+                                <span class="badge bg-light text-dark border">Tradicional (6-8 porc.)</span>
+                                <span class="badge bg-light text-dark border">Familiar (8-15 porc.)</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-premium w-100 mt-2" @onclick="() => AbrirModal(item)">
+                            Ver Tamaños y Pedir
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Details Modal -->
+@if (selectedItem != null)
+{
+    <div class="modal-backdrop fade show" style="z-index: 1040;"></div>
+    <div class="modal fade show d-block" tabindex="-1" style="z-index: 1050; background: rgba(45, 28, 37, 0.4); backdrop-filter: blur(4px);" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content glass-card border-0 shadow-lg p-3">
+                <div class="modal-header border-0 pb-0">
+                    <h2 class="font-heading fw-bold modal-title">@selectedItem.Name</h2>
+                    <button type="button" class="btn-close shadow-none" @onclick="CerrarModal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-4">
+                    <div class="row g-4">
+                        <!-- Image Column -->
+                        <div class="col-md-6">
+                            <div class="rounded-4 overflow-hidden shadow-sm" style="height: 320px;">
+                                <img src="@selectedItem.Pictures[0]" class="w-100 h-100 object-fit-cover" alt="@selectedItem.Name">
+                            </div>
+                        </div>
+
+                        <!-- Config Column -->
+                        <div class="col-md-6 d-flex flex-column justify-content-between">
+                            <div>
+                                <h5 class="fw-bold text-pink mb-2" style="color: var(--color-pink);"><i class="fas fa-info-circle me-2"></i>Descripción</h5>
+                                <p class="text-muted small">@selectedItem.Description</p>
+                                
+                                <hr class="my-3 opacity-25">
+                                
+                                <h5 class="fw-bold mb-3"><i class="fas fa-expand-arrows-alt me-2"></i>Elige el Tamaño:</h5>
+                                <div class="d-flex flex-column gap-2 mb-3">
+                                    <label class="size-selector-btn d-flex align-items-center justify-content-between p-3 rounded-3 border @(selectedSize == "Individual" ? "border-pink-active bg-pink-light-subtle" : "border-light-subtle")" @onclick='() => SetSize("Individual", "1 a 2 porciones")'>
+                                        <div class="d-flex align-items-center">
+                                            <input type="radio" name="tart-size" checked="@(selectedSize == "Individual")" class="me-2 accent-pink" />
+                                            <span class="fw-bold">Individual</span>
+                                        </div>
+                                        <span class="badge bg-white text-pink border border-pink-subtle px-2 py-1">1 a 2 porciones</span>
+                                    </label>
+
+                                    <label class="size-selector-btn d-flex align-items-center justify-content-between p-3 rounded-3 border @(selectedSize == "Tradicional" ? "border-pink-active bg-pink-light-subtle" : "border-light-subtle")" @onclick='() => SetSize("Tradicional", "6 a 8 porciones")'>
+                                        <div class="d-flex align-items-center">
+                                            <input type="radio" name="tart-size" checked="@(selectedSize == "Tradicional")" class="me-2 accent-pink" />
+                                            <span class="fw-bold">Tradicional</span>
+                                        </div>
+                                        <span class="badge bg-white text-pink border border-pink-subtle px-2 py-1">6 a 8 porciones</span>
+                                    </label>
+
+                                    <label class="size-selector-btn d-flex align-items-center justify-content-between p-3 rounded-3 border @(selectedSize == "Familiar" ? "border-pink-active bg-pink-light-subtle" : "border-light-subtle")" @onclick='() => SetSize("Familiar", "8 a 15 porciones")'>
+                                        <div class="d-flex align-items-center">
+                                            <input type="radio" name="tart-size" checked="@(selectedSize == "Familiar")" class="me-2 accent-pink" />
+                                            <span class="fw-bold">Familiar</span>
+                                        </div>
+                                        <span class="badge bg-white text-pink border border-pink-subtle px-2 py-1">8 a 15 porciones</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <a class="btn btn-premium w-100 py-3 fs-5" href="@GetWhatsAppLink(selectedItem)" target="_blank">
+                                    <i class="fab fa-whatsapp me-2"></i>Cotizar Tamaño: @selectedSize
+                                </a>
+                                <p class="text-center text-muted small mt-2 mb-0">Rendimiento: @selectedPortions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private TartItem? selectedItem = null;
+    private string selectedSize = "Tradicional";
+    private string selectedPortions = "6 a 8 porciones";
+
+    private class TartItem
+    {
+        public int Id { get; set; }
+        public required string Name { get; set; }
+        public required string Description { get; set; }
+        public required List<string> Pictures { get; set; }
+    }
+
+    private List<TartItem> items = new()
+    {
+        new TartItem
+        {
+            Id = 1,
+            Name = "Strudel de Manzana",
+            Description = "Fina masa hojaldrada crujiente y dorada al horno, rellena generosamente de manzana caramelizada, canela, nueces picadas y uvas pasas. Servido idealmente tibio.",
+            Pictures = new List<string> { "https://images.unsplash.com/photo-1513220492-06c28f327f27?q=80&w=687&auto=format&fit=crop" }
+        },
+        new TartItem
+        {
+            Id = 2,
+            Name = "Tarta de Frutas Frescas",
+            Description = "Base de masa sablée crujiente y perfumada con vainilla, rellena de una suave crema pastelera artesanal y coronada con una colorida variedad de frutas frescas de temporada cubiertas con brillo de albaricoque.",
+            Pictures = new List<string> { "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?q=80&w=687&auto=format&fit=crop" }
+        }
+    };
+
+    private void AbrirModal(TartItem item)
+    {
+        selectedItem = item;
+        selectedSize = "Tradicional";
+        selectedPortions = "6 a 8 porciones";
+    }
+
+    private void CerrarModal()
+    {
+        selectedItem = null;
+    }
+
+    private void SetSize(string size, string portions)
+    {
+        selectedSize = size;
+        selectedPortions = portions;
+    }
+
+    private string GetWhatsAppLink(TartItem item)
+    {
+        var text = $"Hola Chokolocos! Me interesa cotizar una {item.Name} en tamaño *{selectedSize}* ({selectedPortions}) que vi en su catálogo web.";
+        return $"https://wa.me/15531914321?text={Uri.EscapeDataString(text)}";
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("inicializarCatalogo");
+        }
+    }
+}
+
+<style>
+    .max-w-700 {
+        max-width: 700px;
+    }
+    .size-selector-btn {
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .size-selector-btn:hover {
+        background-color: var(--color-pink-light);
+        border-color: var(--color-pink) !important;
+    }
+    .border-pink-active {
+        border-color: var(--color-pink) !important;
+        background-color: rgba(229, 95, 157, 0.05);
+    }
+    .accent-pink {
+        accent-color: var(--color-pink);
+    }
+</style>

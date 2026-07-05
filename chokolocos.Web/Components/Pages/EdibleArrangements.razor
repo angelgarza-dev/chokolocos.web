@@ -1,0 +1,201 @@
+@page "/arreglos"
+@using chokolocos.Web.Models
+@inject IJSRuntime JS
+
+<PageTitle>Arreglos Comestibles | chokolocos</PageTitle>
+
+<div class="py-4 reveal">
+    <div class="text-center mb-5">
+        <span class="deli-cake text-pink h1" style="color: var(--color-pink);">chokolocos</span>
+        <h1 class="font-heading display-4 fw-bold mt-2">Arreglos Comestibles</h1>
+        <p class="text-muted fs-5">Regalos deliciosos y artísticos para sorprender a tus personas especiales</p>
+    </div>
+
+    <!-- Intro Text -->
+    <div class="text-center max-w-700 mx-auto mb-5 p-4 rounded-4 bg-white shadow-sm border border-light">
+        <p class="mb-0 text-muted" style="line-height: 1.6;">
+            Nuestros arreglos comestibles combinan el sabor exquisito de la fruta y galletas artesanales con un diseño floral elegante. Una alternativa única, hermosa y deliciosa a los ramos de flores tradicionales.
+        </p>
+    </div>
+
+    <!-- Catalog Grid -->
+    <div class="row g-4">
+        @foreach (var item in items)
+        {
+            <div class="col-md-6">
+                <div class="card glass-card hover-lift h-100 border-0 overflow-hidden shadow-sm">
+                    <div class="position-relative" style="height: 280px;">
+                        <img src="@item.Pictures[0]" class="card-img-top w-100 h-100 object-fit-cover" alt="@item.Name">
+                        <div class="category-badge bg-dark">Arreglos</div>
+                    </div>
+                    <div class="card-body p-4 d-flex flex-column justify-content-between">
+                        <div>
+                            <h3 class="font-heading h4 fw-bold mb-2">@item.Name</h3>
+                            <p class="text-muted small mb-4">@item.Description</p>
+                            <div class="mb-3 d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark border">Frutas & Galletas</span>
+                                <span class="badge bg-light text-dark border">Presentación Premium</span>
+                                <span class="badge bg-light text-dark border">Regalo Ideal</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-premium w-100 mt-2" @onclick="() => AbrirModal(item)">
+                            Ver Opciones de Regalo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Details Modal -->
+@if (selectedItem != null)
+{
+    <div class="modal-backdrop fade show" style="z-index: 1040;"></div>
+    <div class="modal fade show d-block" tabindex="-1" style="z-index: 1050; background: rgba(45, 28, 37, 0.4); backdrop-filter: blur(4px);" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content glass-card border-0 shadow-lg p-3">
+                <div class="modal-header border-0 pb-0">
+                    <h2 class="font-heading fw-bold modal-title">@selectedItem.Name</h2>
+                    <button type="button" class="btn-close shadow-none" @onclick="CerrarModal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-4">
+                    <div class="row g-4">
+                        <!-- Image Column -->
+                        <div class="col-md-6">
+                            <div class="rounded-4 overflow-hidden shadow-sm" style="height: 320px;">
+                                <img src="@selectedItem.Pictures[0]" class="w-100 h-100 object-fit-cover" alt="@selectedItem.Name">
+                            </div>
+                        </div>
+
+                        <!-- Config Column -->
+                        <div class="col-md-6 d-flex flex-column justify-content-between">
+                            <div>
+                                <h5 class="fw-bold text-pink mb-2" style="color: var(--color-pink);"><i class="fas fa-info-circle me-2"></i>Detalle del Arreglo</h5>
+                                <p class="text-muted small">@selectedItem.Description</p>
+                                
+                                <hr class="my-3 opacity-25">
+                                
+                                <h5 class="fw-bold mb-3"><i class="fas fa-gift me-2"></i>Presentación del Arreglo:</h5>
+                                <div class="d-flex flex-column gap-2 mb-3">
+                                    <label class="presentation-selector-btn d-flex align-items-center justify-content-between p-3 rounded-3 border @(selectedPresentation == "Ramo Envoltorio (Bouquet)" ? "border-pink-active bg-pink-light-subtle" : "border-light-subtle")" @onclick='() => SetPresentation("Ramo Envoltorio (Bouquet)")'>
+                                        <div class="d-flex align-items-center">
+                                            <input type="radio" name="arrangement-pres" checked="@(selectedPresentation == "Ramo Envoltorio (Bouquet)")" class="me-2 accent-pink" />
+                                            <span class="fw-bold">Ramo Bouquet</span>
+                                        </div>
+                                        <span class="badge bg-white text-pink border border-pink-subtle px-2 py-1">Clásico</span>
+                                    </label>
+
+                                    <label class="presentation-selector-btn d-flex align-items-center justify-content-between p-3 rounded-3 border @(selectedPresentation == "Maceta / Base Decorada" ? "border-pink-active bg-pink-light-subtle" : "border-light-subtle")" @onclick='() => SetPresentation("Maceta / Base Decorada")'>
+                                        <div class="d-flex align-items-center">
+                                            <input type="radio" name="arrangement-pres" checked="@(selectedPresentation == "Maceta / Base Decorada")" class="me-2 accent-pink" />
+                                            <span class="fw-bold">Base Decorada / Maceta</span>
+                                        </div>
+                                        <span class="badge bg-white text-pink border border-pink-subtle px-2 py-1">Estable</span>
+                                    </label>
+
+                                    <label class="presentation-selector-btn d-flex align-items-center justify-content-between p-3 rounded-3 border @(selectedPresentation == "Caja de Regalo Luxury" ? "border-pink-active bg-pink-light-subtle" : "border-light-subtle")" @onclick='() => SetPresentation("Caja de Regalo Luxury")'>
+                                        <div class="d-flex align-items-center">
+                                            <input type="radio" name="arrangement-pres" checked="@(selectedPresentation == "Caja de Regalo Luxury")" class="me-2 accent-pink" />
+                                            <span class="fw-bold">Caja Luxury con Lazo</span>
+                                        </div>
+                                        <span class="badge bg-white text-pink border border-pink-subtle px-2 py-1">Elegante</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <a class="btn btn-premium w-100 py-3 fs-5" href="@GetWhatsAppLink(selectedItem)" target="_blank">
+                                    <i class="fab fa-whatsapp me-2"></i>Cotizar en: @selectedPresentation
+                                </a>
+                                <p class="text-center text-muted small mt-2 mb-0">Presentación elegida: @selectedPresentation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private ArrangementItem? selectedItem = null;
+    private string selectedPresentation = "Ramo Envoltorio (Bouquet)";
+
+    private class ArrangementItem
+    {
+        public int Id { get; set; }
+        public required string Name { get; set; }
+        public required string Description { get; set; }
+        public required List<string> Pictures { get; set; }
+    }
+
+    private List<ArrangementItem> items = new()
+    {
+        new ArrangementItem
+        {
+            Id = 1,
+            Name = "Rosas de Chocolate",
+            Description = "Hermosas fresas frescas de temporada cuidadosamente seleccionadas, cubiertas con delicioso chocolate de color rojo y decoradas con líneas finas. Agrupadas artísticamente con envolturas florales premium para simular un elegante ramo de rosas.",
+            Pictures = new List<string> { "https://images.unsplash.com/photo-1594911774802-8822a707cbb3?q=80&w=600&auto=format&fit=crop" }
+        },
+        new ArrangementItem
+        {
+            Id = 2,
+            Name = "Ramo de Galletas en Flor",
+            Description = "Arreglo decorativo y comestible compuesto por galletas de vainilla horneadas en brochetas y decoradas minuciosamente con Royal Icing en forma de margaritas, rosas y hojas. Envasado en un ramo de regalo o en una linda maceta artesanal.",
+            Pictures = new List<string> { "https://images.unsplash.com/photo-1519060268576-f405891199a4?q=80&w=600&auto=format&fit=crop" }
+        }
+    };
+
+    private void AbrirModal(ArrangementItem item)
+    {
+        selectedItem = item;
+        selectedPresentation = "Ramo Envoltorio (Bouquet)";
+    }
+
+    private void CerrarModal()
+    {
+        selectedItem = null;
+    }
+
+    private void SetPresentation(string presentation)
+    {
+        selectedPresentation = presentation;
+    }
+
+    private string GetWhatsAppLink(ArrangementItem item)
+    {
+        var text = $"Hola Chokolocos! Me interesa cotizar el arreglo comestible *{item.Name}* en la presentación de *{selectedPresentation}* que vi en su catálogo web.";
+        return $"https://wa.me/15531914321?text={Uri.EscapeDataString(text)}";
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("inicializarCatalogo");
+        }
+    }
+}
+
+<style>
+    .max-w-700 {
+        max-width: 700px;
+    }
+    .presentation-selector-btn {
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .presentation-selector-btn:hover {
+        background-color: var(--color-pink-light);
+        border-color: var(--color-pink) !important;
+    }
+    .border-pink-active {
+        border-color: var(--color-pink) !important;
+        background-color: rgba(229, 95, 157, 0.05);
+    }
+    .accent-pink {
+        accent-color: var(--color-pink);
+    }
+</style>
